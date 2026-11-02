@@ -4,9 +4,17 @@
       "rev": "213eed395eebe317700800daf26f476a8c94989c",
       "src": "https://github.com/Diogo-ss/42-header.nvim"
     },
+    "99": {
+      "rev": "c17422457027c913c76c75a921fca1e623d2678e",
+      "src": "https://github.com/ThePrimeagen/99"
+    },
     "Comment.nvim": {
       "rev": "e30b7f2008e52442154b66f7c519bfd2f1e32acb",
       "src": "https://github.com/numToStr/Comment.nvim"
+    },
+    "beancount.nvim": {
+      "rev": "7040bd4402289ee20c033a9d1f243ec4d44942dd",
+      "src": "https://github.com/hxueh/beancount.nvim"
     },
     "blink.cmp": {
       "rev": "78336bc89ee5365633bcf754d93df01678b5c08f",

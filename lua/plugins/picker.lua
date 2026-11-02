@@ -19,6 +19,17 @@ return {
             },
             lazygit = { enabled = true },
             gitbrowse = { enabled = true },
+            statuscolumn = {
+                enabled = true,
+            },
+            indent = { enabled = true },
+            scope = { enabled = true },
+            words = { enabled = true },
+            scratch = { enabled = true },
+            explorer = {
+                enabled = false,
+                replace_netrw = false,
+            },
             -- ui_select makes vim.ui.select use the same picker.
             picker = { enabled = true, ui_select = true, layout = { preset = 'ivy', cycle = true } },
         })
