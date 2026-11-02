@@ -9,7 +9,14 @@ return {
             input = { enabled = true },
             notifier = { enabled = true, timeout = 2500 },
             bufdelete = { enabled = true },
-            terminal = { enabled = true },
+            terminal = {
+                enabled = true,
+                win = {
+                    position = 'bottom',
+                    height = 0.35,
+                    style = 'terminal',
+                },
+            },
             lazygit = { enabled = true },
             gitbrowse = { enabled = true },
             -- ui_select makes vim.ui.select use the same picker.
@@ -53,11 +60,7 @@ return {
         map('n', '<leader>ql', function() Snacks.picker.lsp_workspace_symbols() end, 'Symbols in the workspace')
         map('n', '<leader>qf', function() Snacks.picker.qflist() end, 'Quickfix list')
 
-        -- Terminal. Ctrl-\ shows or hides the last one.
-        map({ 'n', 't' }, '<C-\\>', function() Snacks.terminal.toggle() end, 'Toggle terminal')
-        map('n', '<leader>xt', function() Snacks.terminal.toggle() end, 'Toggle terminal')
-        map('n', '<leader>xf', function()
-            Snacks.terminal.toggle(nil, { win = { position = 'float' } })
-        end, 'Floating terminal')
+        -- Persistent terminal with switchable layouts.
+        require('config.terminal').setup()
     end,
 }

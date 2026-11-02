@@ -1,3 +1,4 @@
+
 -- Automatic behavior. Each block says what would go wrong without it.
 local api = vim.api
 
@@ -5,14 +6,16 @@ local function group(name)
     return api.nvim_create_augroup('config_' .. name, { clear = true })
 end
 
+-- Show which text was yanked.
 api.nvim_create_autocmd('TextYankPost', {
     group = group('yank'),
-    desc = 'Flash yanked text, so you see what you grabbed',
+    desc = 'Flash yanked text',
     callback = function()
         vim.hl.on_yank({ timeout = 150 })
     end,
 })
 
+-- Reload files changed outside Neovim.
 api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
     group = group('checktime'),
     desc = 'Reload files changed outside Neovim',
@@ -23,16 +26,19 @@ api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
     end,
 })
 
+-- Create missing parent directories before writing.
 api.nvim_create_autocmd('BufWritePre', {
     group = group('mkdir'),
     desc = 'Create missing parent directories on write',
     callback = function(args)
         if not args.match:match('^%w%w+://') then
-            vim.fn.mkdir(vim.fn.fnamemodify(args.match, ':p:h'), 'p')
+            local dir = vim.fn.fnamemodify(args.file, ':p:h')
+            vim.fn.mkdir(dir, 'p')
         end
     end,
 })
 
+-- Restore the last cursor position when reopening a file.
 api.nvim_create_autocmd('BufReadPost', {
     group = group('last_position'),
     desc = 'Return to the last cursor position',
@@ -40,6 +46,7 @@ api.nvim_create_autocmd('BufReadPost', {
         if vim.bo[args.buf].buftype ~= '' then
             return
         end
+
         local mark = api.nvim_buf_get_mark(args.buf, '"')
         if mark[1] > 0 and mark[1] <= api.nvim_buf_line_count(args.buf) then
             pcall(api.nvim_win_set_cursor, 0, mark)
@@ -47,61 +54,39 @@ api.nvim_create_autocmd('BufReadPost', {
     end,
 })
 
+-- Make informational windows easy to close.
 api.nvim_create_autocmd('FileType', {
     group = group('close_with_q'),
     pattern = { 'checkhealth', 'help', 'qf', 'startuptime' },
-    desc = 'Info windows are unlisted and close with q',
+    desc = 'Make informational windows unlisted and closeable with q',
     callback = function(args)
         vim.bo[args.buf].buflisted = false
-        vim.keymap.set('n', 'q', '<cmd>close<cr>', { buffer = args.buf, silent = true })
+        vim.keymap.set('n', 'q', '<cmd>close<cr>', {
+            buffer = args.buf,
+            silent = true,
+            desc = 'Close window',
+        })
     end,
 })
 
+-- Strip editor chrome from terminal windows.
 api.nvim_create_autocmd({ 'TermOpen', 'BufEnter' }, {
     group = group('terminal'),
-    desc = 'Strip editor chrome from terminals and start typing',
+    desc = 'Strip editor chrome from terminals',
     callback = function(args)
         if vim.bo[args.buf].buftype ~= 'terminal' then
             return
         end
+
         vim.bo[args.buf].buflisted = false
-        vim.wo.number = false
-        vim.wo.relativenumber = false
-        vim.wo.signcolumn = 'no'
-        vim.cmd.startinsert()
-    end,
-})
 
--- Per-filetype editing: { shiftwidth, expandtab, colorcolumn, wrap, spell }.
--- The colorcolumn marks the limit the formatter enforces (42 caps C at 80).
-local filetypes = {
-    c = { 4, false, '80' },
-    cpp = { 4, false, '100' },
-    python = { 4, true, '79' },
-    go = { 4, false, '100' },
-    lua = { 4, true, '120' },
-    sh = { 4, true, '100' },
-    make = { 8, false, '100' },
-    json = { 2, true, '100' },
-    yaml = { 2, true, '100' },
-    toml = { 2, true, '100' },
-    markdown = { 2, true, '100', true, true },
-}
+        local win = api.nvim_get_current_win()
+        vim.wo[win].number = false
+        vim.wo[win].relativenumber = false
+        vim.wo[win].signcolumn = 'no'
 
-api.nvim_create_autocmd('FileType', {
-    group = group('filetype_options'),
-    pattern = vim.tbl_keys(filetypes),
-    desc = 'Apply per-filetype editing options',
-    callback = function(args)
-        local width, expand, column, wrap, spell = unpack(filetypes[args.match])
-        vim.bo[args.buf].shiftwidth = width
-        vim.bo[args.buf].tabstop = width
-        vim.bo[args.buf].softtabstop = width
-        vim.bo[args.buf].expandtab = expand
-        vim.wo.colorcolumn = column
-        if wrap ~= nil then
-            vim.wo.wrap = wrap
-            vim.wo.spell = spell
+        if args.event == 'TermOpen' then
+            vim.cmd.startinsert()
         end
     end,
 })
