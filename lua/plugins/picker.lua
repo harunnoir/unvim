@@ -21,6 +21,24 @@ return {
             gitbrowse = { enabled = true },
             statuscolumn = {
                 enabled = true,
+
+                -- Left and right component priority.
+                left = { 'mark', 'sign' },
+                right = { 'fold', 'git' },
+
+                folds = {
+                    open = true,
+                    git_hl = true,
+                },
+
+                git = {
+                    patterns = {
+                        'GitSign',
+                        'MiniDiffSign',
+                    },
+                },
+
+                refresh = 50,
             },
             indent = { enabled = true },
             scope = { enabled = true },

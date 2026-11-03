@@ -64,13 +64,21 @@ opt.splitkeep = 'screen'
 -- Make trailing spaces and tabs visible.
 opt.list = true
 opt.listchars = { tab = '› ', trail = '·', nbsp = '␣' }
-opt.fillchars = { eob = ' ' }
+opt.fillchars = {
+    eob = ' ',
+    fold = ' ',
+    foldopen = '⌄',
+    foldclose = '›',
+    foldsep = ' ',
+}
 
--- Folds follow the syntax tree and start fully open.
-opt.foldmethod = 'expr'
-opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+-- Folds are managed by nvim-ufo, using Tree-sitter and indentation.
+opt.foldcolumn = '1'
+opt.foldmethod = 'manual'
+opt.foldexpr = ''
 opt.foldlevel = 99
 opt.foldlevelstart = 99
+opt.foldenable = true
 
 -- Neovide only; these globals do nothing in a terminal.
 if vim.g.neovide then
