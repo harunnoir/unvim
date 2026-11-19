@@ -49,6 +49,8 @@ check basedpyright basedpyright-langserver optional 'run sh/lang/python.sh'
 check flake8 flake8 optional 'run sh/lang/python.sh'
 check autopep8 autopep8 optional 'run sh/lang/python.sh'
 check docformatter docformatter optional 'run sh/lang/python.sh'
+check ipython ipython optional 'run sh/lang/python.sh'
+check ptpython ptpython optional 'run sh/lang/python.sh'
 
 say 'Go          (sh/lang/go.sh)'
 check go go optional 'install from https://go.dev/dl/'

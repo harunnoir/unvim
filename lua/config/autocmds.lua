@@ -1,4 +1,3 @@
-
 -- Automatic behavior. Each block says what would go wrong without it.
 local api = vim.api
 
@@ -80,7 +79,7 @@ api.nvim_create_autocmd({ 'TermOpen', 'BufEnter' }, {
 
         vim.bo[args.buf].buflisted = false
 
-        local win = api.nvim_get_current_win()
+        local win = vim.api.nvim_get_current_win()
         vim.wo[win].number = false
         vim.wo[win].relativenumber = false
         vim.wo[win].signcolumn = 'no'

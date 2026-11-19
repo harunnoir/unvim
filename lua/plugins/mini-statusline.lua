@@ -1,9 +1,5 @@
--- Statusline: minimal and informative.
+-- Statusline plugin: mini.nvim statusline
+-- Minimal config, loaded via vim.pack
 return {
     'nvim-mini/mini.statusline',
-    config = function()
-        require('mini.statusline').setup({
-            use_icons = false,
-        })
-    end,
 }

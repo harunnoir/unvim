@@ -19,7 +19,7 @@
     "blink.cmp": {
       "rev": "78336bc89ee5365633bcf754d93df01678b5c08f",
       "src": "https://github.com/saghen/blink.cmp",
-      "version": "1.0.0 - 2.0.0"
+      "version": "'1.0.0 - 2.0.0'"
     },
     "conform.nvim": {
       "rev": "016802de402556da54c36bd7359b441266b01cdd",
@@ -44,6 +44,10 @@
     "gruvbox-material": {
       "rev": "11d779b26a9ab2b3db8c22c6ac9fb6e8ed4fea79",
       "src": "https://github.com/sainnhe/gruvbox-material"
+    },
+    "lazy.nvim": {
+      "rev": "306a05526ada86a7b30af95c5cc81ffba93fef97",
+      "src": "https://github.com/folke/lazy.nvim"
     },
     "mini.nvim": {
       "rev": "6d5a29e86a7352739506c28e0bc50fe214b5216f",

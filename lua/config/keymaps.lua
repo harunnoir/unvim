@@ -50,23 +50,19 @@ map('n', '<leader>wm', function()
     end
 end, 'Toggle window maximize')
 
--- Toggles. `assist` is the one switch for diagnostics and completion together,
--- for when you want to write without help (see completion.lua).
+-- Toggles. Wrap, spell, relative numbers, and diagnostics.
 map('n', '<leader>tw', '<cmd>set wrap!<cr>', 'Toggle wrap')
 map('n', '<leader>ts', '<cmd>set spell!<cr>', 'Toggle spell')
 map('n', '<leader>tn', '<cmd>set relativenumber!<cr>', 'Toggle relative numbers')
 map('n', '<leader>td', function()
-    vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+    vim.diagnostic.enable(not vim.dagnostic.is_enabled())
 end, 'Toggle diagnostics')
-map('n', '<leader>ta', function()
-    local on = vim.g.assist == false
-    vim.g.assist = on
-    vim.diagnostic.enable(on)
-    vim.notify('assist ' .. (on and 'on' or 'off'))
-end, 'Toggle assist (diagnostics + completion)')
 
 -- Neovim's built-in undo tree.
 map('n', '<leader>uu', function()
     pcall(vim.cmd.packadd, 'nvim.undotree')
     vim.cmd('Undotree')
 end, 'Undo tree')
+
+-- Toggle fold of current line
+map('n', '<Tab>', 'za', 'Toggle fold')

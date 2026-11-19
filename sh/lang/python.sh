@@ -7,5 +7,5 @@ HERE=$(cd "$(dirname "$0")/.." && pwd)
 SUMMARY='Install Python tooling under ~/.local.'
 parse_flags "$@"
 
-choose "$(missing uv basedpyright flake8 autopep8 docformatter parser_python)"
+choose "$(missing uv basedpyright flake8 autopep8 docformatter ipython ptpython parser_python)"
 install_chosen
