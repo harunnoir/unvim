@@ -162,3 +162,10 @@ cargo_tool() {
 install_rust_analyzer() { cargo_tool rust-analyzer; }
 install_clippy() { cargo_tool clippy; }
 install_rustfmt() { cargo_tool rustfmt; }
+
+# JavaScript/TypeScript tooling via uv.
+install_typescript_language_server() { uv_tool typescript-language-server typescript-language-server; }
+install_deno() { uv_tool deno deno; }
+install_prettier() { uv_tool prettier prettier; }
+install_eslint_d() { uv_tool eslint_d eslint_d; }
+install_prettier_d() { uv_tool prettier_d prettier_d; }

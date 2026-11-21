@@ -7,5 +7,5 @@ HERE=$(cd "$(dirname "$0")/.." && pwd)
 SUMMARY='Install JavaScript/TypeScript tooling under ~/.local.'
 parse_flags "$@"
 
-choose "$(missing uv typescript-language-server deno Prettier eslint_d prettier_d)"
+choose "$(missing typescript_language_server deno prettier eslint_d prettier_d)"
 install_chosen
