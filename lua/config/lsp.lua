@@ -35,6 +35,45 @@ local servers = {
         filetypes = { 'go', 'gomod', 'gowork' },
         root_markers = { 'go.work', 'go.mod', '.git' },
     },
+
+    -- TypeScript/JavaScript language server
+    tsserver = {
+        cmd = { 'typescript-language-server', 'start' },
+        filetypes = { 'javascript', 'typescript', 'javascriptreact', 'typescriptreact' },
+        root_markers = { 'package.json', 'tsconfig.json', 'jsconfig.json', '.git' },
+        init_options = {
+            preferences = {
+                includeInlayParameterNameHints = 'all',
+                includeInlayParameterNameHintsWhenArgumentMatches = '',
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayVariableTypeHints = true,
+                includeInlayVariableTypeHintsWhenArgumentMatches = '',
+                includeInlayCompositeTypeHints = true,
+            },
+        },
+    },
+
+    -- Rust language server
+    rust_analyzer = {
+        cmd = { 'rust-analyzer' },
+        filetypes = { 'rust' },
+        root_markers = { 'Cargo.toml', 'rust-project.toml', '.git' },
+        settings = {
+            ['rust-analyzer'] = {
+                cargo = {
+                    allFeatures = true,
+                    autoImportSources = true,
+                },
+                check = {
+                },
+                diagnostics = {
+                },
+                procMacro = {
+                    enable = true,
+                },
+            },
+        },
+    },
 }
 
 -- Completion needs to tell servers what it can display.

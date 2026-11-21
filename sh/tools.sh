@@ -152,3 +152,13 @@ install_parser() {
     has cc || has gcc || has clang || { warn 'a C compiler is needed to build parsers'; return 1; }
     NVIM_INSTALL=1 nvim --headless "+lua require('nvim-treesitter').install({ '$1' }):wait(300000)" +qa
 }
+
+# cargo_tool TOOL -- install a Rust tool via cargo install.
+cargo_tool() {
+    has cargo || { warn 'Cargo is required first'; return 1; }
+    cargo install "$1"
+}
+
+install_rust_analyzer() { cargo_tool rust-analyzer; }
+install_clippy() { cargo_tool clippy; }
+install_rustfmt() { cargo_tool rustfmt; }
